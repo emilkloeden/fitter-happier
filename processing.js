@@ -1,38 +1,28 @@
-const fsp = require('fs-promise')
-const { join } = require('path')
-const audio_features = require('./output/audio_features.json')
+const artist = require('./spotify-simplify')
 const { flatten } = require('./utils')
 
-const excludedFiles = [
-    "audio_features.json",
-    "first_attempt.js",
-    "TKOL RMX 1234567.json"
+const excludedAlbums = [ 
+        'TKOL RMX 1234567', 
+        'In Rainbows Disk 2', 
+        'Com Lag: 2+2=5', 
+        'I Might Be Wrong' 
+    ]
 
-]
+const { albums } = artist
 
-fsp.readdir(join(__dirname, 'output'))
-    .then(files => files.filter(filename => excludedFiles.indexOf(filename) === -1 ))
-    .then(files => {
-        return Promise.all(
-            files.map(file => {
-                const filePath = join(__dirname, 'output', file)
-                return fsp
-                    .readFile(filePath,'utf8')
-                    .then(JSON.parse)
-                    .then(data => data.body.items)
-                    .then(tracks => 
-                            tracks.map(
-                                track => {
-                                    const { id, name } = track
-                                    return { id, name }
-                    }))
+const valences = 
+    flatten(
+        albums
+            .filter(album => excludedAlbums.indexOf(album.name) === -1 )
+            .map(album => {
+                return album.tracks.map(track => {
+                    const { name, valence } = track
+                    return { name, valence }
+                })
             })
-        )
+    )
+    .sort((a, b) => {
+        return a.valence - b.valence
     })
-    .then(console.log)
 
-const r = flatten(audio_features.map(track => track.body.audio_features))
-const l = r.map(f => f.id)
-// console.log(l)
-// console.log(l.length)
-// console.log(r[0])
+console.log(valences)
