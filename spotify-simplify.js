@@ -1,4 +1,5 @@
-const artist = require('./output/Radiohead.json')
+const artistName = process.argv[2] || "radiohead"
+const artist = require(`./output/${artistName}.json`)
 
 const simplifiedArtist = {}
 simplifiedArtist.id = artist.id

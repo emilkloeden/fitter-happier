@@ -20,9 +20,13 @@ function flatten(arrayOfArrays) {
     return newArray
 }
 
+function handleError(err) {
+    console.error(err)
+}
 
 module.exports = {
     caseInsensitiveMatch,
     findOne,
-    flatten
+    flatten,
+    handleError
 }
