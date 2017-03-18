@@ -7,7 +7,10 @@
     "cheerio": "^0.22.0",
     "fs-promise": "^2.0.0",
     "parse5": "^3.0.2",
+    "promise-retry": "^1.1.1",
     "request": "^2.79.0",
+    "request-promise-native": "^1.0.3",
+    "rimraf": "^2.6.1",
     "spotify-web-api-node": "^2.3.6"
   },
   "devDependencies": {},

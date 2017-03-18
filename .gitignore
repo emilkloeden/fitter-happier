@@ -8,3 +8,5 @@ genius-api-playground.js
 spotify-simplify.js
 nrc-sadness.json
 nrc-sadness.txt
+stopwords.txt
+parse-stopwords.py

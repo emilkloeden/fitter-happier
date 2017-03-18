@@ -1,3 +1,5 @@
+const fsp = require('fs-promise')
+
 function caseInsensitiveMatch(a, b) {
     return a.toUpperCase() === b.toUpperCase()
 }
@@ -21,7 +23,8 @@ function flatten(arrayOfArrays) {
 }
 
 function handleError(err) {
-    console.error(err)
+    console.log(err)
+    fsp.appendFile('./output/errors.txt', JSON.stringify(err, null, 2) + '\n')
 }
 
 module.exports = {
